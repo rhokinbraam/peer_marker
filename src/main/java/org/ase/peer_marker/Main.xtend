@@ -2,6 +2,7 @@ package org.ase.peer_marker
 
 import com.tobykurien.sparkler.db.DatabaseManager
 import com.tobykurien.sparkler.transformer.JsonTransformer
+import org.ase.peer_marker.model.Assignment
 import org.ase.peer_marker.model.Student
 import org.javalite.activejdbc.Model
 import spark.servlet.SparkApplication
@@ -17,7 +18,8 @@ class Main implements SparkApplication {
 		//externalStaticFileLocation("/var/www/public") // external static files (css, js, jpg)
 		DatabaseManager.init(Student.package.name) // init db with package containing db models
 		val student = Model.with(Student)
-		externalStaticFileLocation("C:/Users/Umoh/git/peer_marker/views/app")
+		val assignment = Model.with(Assignment)
+		//externalStaticFileLocation("C:/Users/Umoh/git/peer_marker/views/app")
 
 		before [ req, res, filter |
 			if (!req.pathInfo.equals("/login")) {
@@ -42,9 +44,20 @@ class Main implements SparkApplication {
 		]
 
 		post("/login") [ req, res |
-			req.session.attribute("username", req.params("username"))
-			null
+			req.session(true)
+			System.out.println(";;;;;;;")
+			req.session().raw().setAttribute("username", req.params("username"))
+			System.out.println(req.session().raw.getAttribute("username"))
+			res.redirect("/")
+			""
 		]
+		
+		get(
+			new JsonTransformer("/api/assignments") [ req, res |
+				assignment.all
+			])
+		
+		
 	}
 
 	def static void main(String[] args) {
