@@ -16,12 +16,12 @@ class Main implements SparkApplication {
 
 		// these are optional initializers, must be set before routes
 		//setPort(4567) // port to bind on startup, default is 4567
-		//externalStaticFileLocation("/var/www/public") // external static files (css, js, jpg)
+		//staticFileLocation("/var/www/public") // external static files (css, js, jpg)
 		DatabaseManager.init(Student.package.name) // init db with package containing db models
 		val student = Model.with(Student)
 		val assignment = Model.with(Assignment)
 		val answer = Model.with(Answer)
-		externalStaticFileLocation("D:/Users/f3167879/Documents/GitHub/peer_marker/views/app")
+		externalStaticFileLocation("/Users/zabil/projects/peer_marker/views/app")
 
 		before [ req, res, filter |
 			if (!req.pathInfo.equals("/login")) {
@@ -59,7 +59,7 @@ class Main implements SparkApplication {
 		
 		get("/api/user") [ req, res |
 			res.type("application/json")
-			'''{ 'name': '«req.session(true).attribute("username")»'}'''
+			'''{ 'name': 'ï¿½req.session(true).attribute("username")ï¿½'}'''
 		]
 		
 		get(
