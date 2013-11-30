@@ -55,9 +55,10 @@ class Main implements SparkApplication {
 				assignment.all
 			])
 		
-		get(new JsonTransformer("/api/user") [ req, res |
-			req.session(true).attribute("username")
-		])
+		get("/api/user") [ req, res |
+			res.type("application/json")
+			'''{ 'name': '«req.session(true).attribute("username")»'}'''
+		]
 	}
 
 	def static void main(String[] args) {
