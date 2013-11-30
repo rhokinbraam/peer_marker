@@ -10,7 +10,7 @@ angular.module('myApp', [
         'myApp.controllers'
     ]).
     config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/assignments', {templateUrl: 'partials/assignments.html', controller: 'AssignmentController'});
+        $routeProvider.when('/assignments', {templateUrl: 'partials/assignments.html', controller: 'AssignmentsController'});
         $routeProvider.otherwise({redirectTo: '/assignments'});
     }]);
 
@@ -24,6 +24,20 @@ angular.module('myApp', [
             $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
         })
         .run(function ($httpBackend) {
+
+            (function () {
+                var assigment = {};
+                var assignmentResponse = function () {
+                    console.debug("Response" + JSON.stringify(assigment));
+                    return assigment;
+                };
+                setTimeout(function () {
+                    console.debug("extending assignment")
+                    angular.extend(assigment, {name: "New Assigment"});
+                }, 10000);
+                $httpBackend.whenGET('api/assignment').respond(assignmentResponse());
+            })();
+
             $httpBackend.whenGET('api/assignments').respond([
                 {
                     title: 'Assignment 1',

@@ -10,10 +10,12 @@
 angular.module('myApp.services', []).
     value('version', '0.1').factory("AssignmentService",function ($http) {
         return { all: function () {
-            return $http.get("api/assignments")
+            return $http.get("api/assignments");
+        }, fetch: function () {
+            return $http.get("api/assignment");
         } };
     }).factory('UserService', function ($http) {
         return { get: function () {
-            return $http.get("api/user")
+            return $http.get("api/user");
         } };
     });
