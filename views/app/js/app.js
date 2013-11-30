@@ -46,6 +46,11 @@ angular.module('myApp', [
                     grade: 95
                 }
             ]);
+
+            $httpBackend.whenGET("/user").respond({
+                name: 'Name'
+            });
+
             $httpBackend.whenGET(/^partials\//).passThrough();
         });
 }(angular));
