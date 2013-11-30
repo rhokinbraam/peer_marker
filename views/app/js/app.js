@@ -24,7 +24,7 @@ angular.module('myApp', [
             $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
         })
         .run(function ($httpBackend) {
-            $httpBackend.whenGET('/assignments').respond([
+            $httpBackend.whenGET('api/assignments').respond([
                 {
                     title: 'Assignment 1',
                     date: '1-jan-2012',
@@ -47,7 +47,7 @@ angular.module('myApp', [
                 }
             ]);
 
-            $httpBackend.whenGET("/user").respond({
+            $httpBackend.whenGET("api/user").respond({
                 name: 'Name'
             });
 
