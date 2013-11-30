@@ -59,7 +59,7 @@ class Main implements SparkApplication {
 		
 		get("/api/user") [ req, res |
 			res.type("application/json")
-			'''{ 'name': '�req.session(true).attribute("username")�'}'''
+			'''{ "name": "toby"}'''
 		]
 		
 		get(
