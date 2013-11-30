@@ -16,7 +16,8 @@ create table answers(
 	id bigint auto_increment,
 	student_id bigint,
 	assignment_id bigint,
-	grade integer
+	grade double,
+	content text
 );
 
 create table evaluations(
