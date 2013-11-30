@@ -66,6 +66,11 @@ class Main implements SparkApplication {
 			new JsonTransformer("/api/answers") [ req, res |
 				answer.all
 			])
+			
+		get(
+			new JsonTransformer("/api/answers/:id") [ req, res |
+				answer.findById(req.params("id"))
+			])
 	}
 
 	def static void main(String[] args) {
