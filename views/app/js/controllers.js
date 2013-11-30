@@ -6,7 +6,14 @@ var module = angular.module('myApp.controllers', []).
     controller('AssignmentsController', [
         '$scope',
         'AssignmentService',
-        '$timeout', function ($scope, AssignmentService, $timeout) {
+        'UserService',
+        '$timeout', function ($scope, AssignmentService, UserService, $timeout) {
+            $scope.name = "test";
+
+            UserService.get().then(function (result) {
+                $scope.user = result.data;
+            });
+
             AssignmentService.answers().then(function (result) {
                 $scope.answers = result.data;
                 var fetch = function () {
@@ -27,11 +34,4 @@ var module = angular.module('myApp.controllers', []).
                 };
                 fetch();
             });
-        }])
-    .controller('UserController', ['$scope', 'UserService', function ($scope, UserService) {
-        UserService.get().then(function (result) {
-		console.debug(JSON.stringify(result.data));            
-		$scope.user = result.data;
-		console.debug($scope.user.name);            
-        });
-    }]);
+        }]);
