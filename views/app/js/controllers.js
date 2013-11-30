@@ -30,6 +30,8 @@ var module = angular.module('myApp.controllers', []).
         }])
     .controller('UserController', ['$scope', 'UserService', function ($scope, UserService) {
         UserService.get().then(function (result) {
-            $scope.user = result.data;
+		console.debug(JSON.stringify(result.data));            
+		$scope.user = result.data;
+		console.debug($scope.user.name);            
         });
     }]);
