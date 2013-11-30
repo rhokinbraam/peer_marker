@@ -2,6 +2,7 @@ package org.ase.peer_marker
 
 import com.tobykurien.sparkler.db.DatabaseManager
 import com.tobykurien.sparkler.transformer.JsonTransformer
+import org.ase.peer_marker.model.Answer
 import org.ase.peer_marker.model.Assignment
 import org.ase.peer_marker.model.Student
 import org.javalite.activejdbc.Model
@@ -19,6 +20,7 @@ class Main implements SparkApplication {
 		DatabaseManager.init(Student.package.name) // init db with package containing db models
 		val student = Model.with(Student)
 		val assignment = Model.with(Assignment)
+		val answer = Model.with(Answer)
 		externalStaticFileLocation("D:/Users/f3167879/Documents/GitHub/peer_marker/views/app")
 
 		before [ req, res, filter |
@@ -59,6 +61,11 @@ class Main implements SparkApplication {
 			res.type("application/json")
 			'''{ 'name': '«req.session(true).attribute("username")»'}'''
 		]
+		
+		get(
+			new JsonTransformer("/api/answers") [ req, res |
+				answer.all
+			])
 	}
 
 	def static void main(String[] args) {
