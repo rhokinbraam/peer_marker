@@ -19,7 +19,7 @@ create table answers(
 	grade integer
 );
 
-create table evaluation(
+create table evaluations(
 	id bigint auto_increment,
 	answer_id bigint,
 	pcomment varchar(255),
