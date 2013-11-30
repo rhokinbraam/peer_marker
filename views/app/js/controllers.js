@@ -3,11 +3,8 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-    controller('MyCtrl1', ['$scope', 'TodoService', function ($scope, TodoService) {
-        TodoService.all().then(function (result) {
-            $scope.todos = result.data;
+    controller('AssignmentController', ['$scope', 'AssignmentService', function ($scope, AssignmentService) {
+        AssignmentService.all().then(function (result) {
+            $scope.assignments = result.data;
         });
-    }])
-    .controller('MyCtrl2', [function () {
-
     }]);

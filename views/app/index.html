@@ -4,19 +4,31 @@
     <meta charset="utf-8">
     <title>My AngularJS App</title>
     <link rel="stylesheet" href="css/app.css"/>
-    <link rel="stylesheet" href="css/pure-min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
 </head>
 <body>
-<div class="pure-menu pure-menu-open pure-menu-horizontal">
-    <ul>
-        <li><a href="#/view1">view1</a></li>
-        <li><a href="#/view2">view2</a></li>
-    </ul>
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Peermarker</a>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Welcome [student]</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-view></div>
+        </div>
+    </div>
 </div>
 
-<div ng-view></div>
-
-<div>Angular seed app: v<span app-version></span></div>
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
