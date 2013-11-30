@@ -1,5 +1,30 @@
-create table books (
-  id bigint auto_increment,
-  title varchar(255),
-  author varchar(255)
-)
+create table students(
+	id bigint auto_increment,
+	username varchar(255),
+	password varchar(255)
+);
+
+create table assignments (
+	id bigint auto_increment,
+	name varchar(255),
+	question text,
+	class varchar(255),
+	status integer
+);
+
+create table answers(
+	id bigint auto_increment,
+	student_id bigint,
+	assignment_id bigint,
+	grade integer
+);
+
+create table evaluation(
+	id bigint auto_increment,
+	answer_id bigint,
+	pcomment varchar(255),
+	score double,
+	ccomment varchar(255)
+);
+
+
