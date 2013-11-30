@@ -45,4 +45,11 @@ var module = angular.module('myApp.controllers', []).
             UserService.get().then(function (result) {
                 $location.path(result.data.type)
             });
-        }]);
+        }]).controller('TeacherController', ['$scope', 'UserService', 'AssignmentService' , function ($scope, UserService, AssignmentService) {
+        UserService.get().then(function (result) {
+            $scope.user = result.data;
+        });
+        $scope.create = function (name, question) {
+            AssignmentService.create(name, question);
+        }
+    }]);

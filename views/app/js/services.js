@@ -13,6 +13,8 @@ angular.module('myApp.services', []).
             return $http.get("api/answers");
         }, fetch: function () {
             return $http.get("api/assignment");
+        }, create: function (name, question) {
+            return $http.post("api/assignment");
         } };
     }).factory('UserService', function ($http) {
         return { get: function () {
