@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>My AngularJS App</title>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.css"/>
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Peermarker</a>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well"><form class="form-horizontal" role="form" action="login" method="POST">
+                <div class="form-group">
+                    <label for="inputUsername" class="col-md-3 col-md-offset-3 control-label">User Name</label>
+
+                    <div class="col-md-3">
+                        <input type="user" class="form-control" id="inputUsername" placeholder="Enter User Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-md-3 col-md-offset-3 control-label">Password</label>
+
+                    <div class="col-md-3">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-6 col-md-3">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                </div>
+            </form></div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
