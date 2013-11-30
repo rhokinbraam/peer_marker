@@ -19,12 +19,13 @@ class Main implements SparkApplication {
 		DatabaseManager.init(Student.package.name) // init db with package containing db models
 		val student = Model.with(Student)
 		val assignment = Model.with(Assignment)
-		//externalStaticFileLocation("C:/Users/Umoh/git/peer_marker/views/app")
+		externalStaticFileLocation("D:/Users/f3167879/Documents/GitHub/peer_marker/views/app")
 
 		before [ req, res, filter |
 			if (!req.pathInfo.equals("/login")) {
-				if (req.session.attribute("username") == null) {
+				if (req.session(true).attribute("username") == null) {
 					res.redirect("/login")
+					filter.haltFilter(401, "Unauthorised")
 				}
 			}
 		]
@@ -44,10 +45,7 @@ class Main implements SparkApplication {
 		]
 
 		post("/login") [ req, res |
-			req.session(true)
-			System.out.println(";;;;;;;")
-			req.session().raw().setAttribute("username", req.params("username"))
-			System.out.println(req.session().raw.getAttribute("username"))
+			req.session(true).attribute("username", "toby")
 			res.redirect("/")
 			""
 		]
@@ -57,7 +55,9 @@ class Main implements SparkApplication {
 				assignment.all
 			])
 		
-		
+		get(new JsonTransformer("/api/user") [ req, res |
+			req.session(true).attribute("username")
+		])
 	}
 
 	def static void main(String[] args) {
