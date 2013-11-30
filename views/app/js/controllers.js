@@ -7,8 +7,8 @@ var module = angular.module('myApp.controllers', []).
         '$scope',
         'AssignmentService',
         '$timeout', function ($scope, AssignmentService, $timeout) {
-            AssignmentService.all().then(function (result) {
-                $scope.assignments = result.data;
+            AssignmentService.answers().then(function (result) {
+                $scope.answers = result.data;
                 var fetch = function () {
                     var checkAssignment = $timeout(function () {
                         AssignmentService.fetch().then(function (result) {

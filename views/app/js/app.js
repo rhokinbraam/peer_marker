@@ -10,8 +10,8 @@ angular.module('myApp', [
         'myApp.controllers'
     ]).
     config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/assignments', {templateUrl: 'partials/assignments.html', controller: 'AssignmentsController'});
-        $routeProvider.otherwise({redirectTo: '/assignments'});
+        $routeProvider.when('/answers', {templateUrl: 'partials/assignments.html', controller: 'AssignmentsController'});
+        $routeProvider.otherwise({redirectTo: '/answers'});
     }]);
 
 
@@ -38,26 +38,30 @@ angular.module('myApp', [
                 $httpBackend.whenGET('api/assignment').respond(assignmentResponse());
             })();
 
-            $httpBackend.whenGET('api/assignments').respond([
+            $httpBackend.whenGET('api/answers').respond([
                 {
-                    title: 'Assignment 1',
+                    assignment: { name: "One", status : "DONE"},
                     date: '1-jan-2012',
-                    grade: 85
+                    grade: 85,
+                    id: 1
                 },
                 {
-                    title: 'Assignment 2',
+                    assignment: { name: "Two", status : "DONE"},
                     date: '1-feb-2012',
-                    grade: 65
+                    grade: 65,
+                    id: 2
                 },
                 {
-                    title: 'Assignment 3',
+                    assignment: { name: "Three" , status : "DONE"},
                     date: '1-mar-2012',
-                    grade: 75
+                    grade: 75,
+                    id: 3
                 },
                 {
-                    title: 'Assignment 4',
+                    assignment: { name: "Four", status : "EDITING"},
                     date: '1-apr-2012',
-                    grade: 95
+                    grade: 95,
+                    id: 4
                 }
             ]);
 

@@ -9,8 +9,8 @@
 // In this case it is a simple value service.
 angular.module('myApp.services', []).
     value('version', '0.1').factory("AssignmentService",function ($http) {
-        return { all: function () {
-            return $http.get("api/assignments");
+        return { answers: function () {
+            return $http.get("api/answers");
         }, fetch: function () {
             return $http.get("api/assignment");
         } };
