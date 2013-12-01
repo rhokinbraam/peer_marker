@@ -10,8 +10,10 @@ angular.module('myApp', [
         'myApp.controllers'
     ]).
     config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/answers', {templateUrl: 'partials/assignments.html', controller: 'AssignmentsController'});
-        $routeProvider.otherwise({redirectTo: '/answers'});
+        $routeProvider.when('/student', {templateUrl: 'partials/student.html', controller: 'StudentController'});
+        $routeProvider.when('/teacher', {templateUrl: 'partials/teacher.html', controller: 'TeacherController'});
+        $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeController'});
+        $routeProvider.otherwise({redirectTo: '/home'});
     }]);
 
 
@@ -40,25 +42,25 @@ angular.module('myApp', [
 
             $httpBackend.whenGET('api/answers').respond([
                 {
-                    assignment: { name: "One", status : "DONE"},
+                    assignment: { name: "One", status: "DONE"},
                     date: '1-jan-2012',
                     grade: 85,
                     id: 1
                 },
                 {
-                    assignment: { name: "Two", status : "DONE"},
+                    assignment: { name: "Two", status: "DONE"},
                     date: '1-feb-2012',
                     grade: 65,
                     id: 2
                 },
                 {
-                    assignment: { name: "Three" , status : "DONE"},
+                    assignment: { name: "Three", status: "DONE"},
                     date: '1-mar-2012',
                     grade: 75,
                     id: 3
                 },
                 {
-                    assignment: { name: "Four", status : "EDITING"},
+                    assignment: { name: "Four", status: "EDITING"},
                     date: '1-apr-2012',
                     grade: 95,
                     id: 4
@@ -66,7 +68,8 @@ angular.module('myApp', [
             ]);
 
             $httpBackend.whenGET("api/user").respond({
-                name: 'Name'
+                name: 'Name',
+                type: 'student'
             });
 
             $httpBackend.whenGET(/^partials\//).passThrough();
