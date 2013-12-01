@@ -1,11 +1,10 @@
 package org.ase.peer_marker.transformer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Objects;
 import com.tobykurien.sparkler.Helper;
 import com.tobykurien.sparkler.db.DatabaseManager;
-import java.util.Map;
 import javax.sql.DataSource;
-import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.javalite.activejdbc.Base;
@@ -32,22 +31,22 @@ public class JsonTransformer extends ResponseTransformerRoute {
   }
   
   public String escapeString(final String s) {
-    String _replace = s.replace("\'", "\\\'");
+    String _replace = s.replace("\"", "\\\"");
     return _replace;
   }
   
   public Object handle(final Request request, final Response response) {
-    CharSequence _xblockexpression = null;
+    String _xblockexpression = null;
     {
       response.type("application/json");
-      CharSequence _xtrycatchfinallyexpression = null;
+      String _xtrycatchfinallyexpression = null;
       try {
-        CharSequence _xblockexpression_1 = null;
+        String _xblockexpression_1 = null;
         {
           DataSource _newDataSource = DatabaseManager.newDataSource();
           Base.open(_newDataSource);
           Object model = this.handler.apply(request, response);
-          CharSequence _xifexpression = null;
+          String _xifexpression = null;
           boolean _equals = Objects.equal(model, null);
           if (_equals) {
             String _xblockexpression_2 = null;
@@ -57,33 +56,22 @@ public class JsonTransformer extends ResponseTransformerRoute {
             }
             _xifexpression = _xblockexpression_2;
           } else {
-            CharSequence _xifexpression_1 = null;
+            String _xifexpression_1 = null;
             if ((model instanceof Model)) {
               return ((Model) model).toJson(false);
             } else {
-              CharSequence _xifexpression_2 = null;
+              String _xifexpression_2 = null;
               if ((model instanceof LazyList)) {
                 return ((LazyList) model).toJson(false);
               } else {
-                CharSequence _xifexpression_3 = null;
-                if ((model instanceof Map)) {
-                  String _string = ((Map) model).toString();
-                  return this.escapeString(_string);
+                String _xifexpression_3 = null;
+                boolean _equals_1 = Objects.equal(model, null);
+                if (_equals_1) {
+                  _xifexpression_3 = null;
                 } else {
-                  CharSequence _xifexpression_4 = null;
-                  boolean _equals_1 = Objects.equal(model, null);
-                  if (_equals_1) {
-                    _xifexpression_4 = null;
-                  } else {
-                    StringConcatenation _builder = new StringConcatenation();
-                    _builder.append("{ \'result\': \'");
-                    String _string_1 = model.toString();
-                    String _escapeString = this.escapeString(_string_1);
-                    _builder.append(_escapeString, "");
-                    _builder.append("\' }");
-                    _xifexpression_4 = _builder;
-                  }
-                  _xifexpression_3 = _xifexpression_4;
+                  ObjectMapper _objectMapper = new ObjectMapper();
+                  String _writeValueAsString = _objectMapper.writeValueAsString(model);
+                  _xifexpression_3 = _writeValueAsString;
                 }
                 _xifexpression_2 = _xifexpression_3;
               }
@@ -97,15 +85,15 @@ public class JsonTransformer extends ResponseTransformerRoute {
       } catch (final Throwable _t) {
         if (_t instanceof Exception) {
           final Exception e = (Exception)_t;
-          CharSequence _xblockexpression_2 = null;
+          String _xblockexpression_2 = null;
           {
+            response.status(500);
             String error = Helper.handleError(request, response, e);
-            StringConcatenation _builder = new StringConcatenation();
-            _builder.append("{\'error\': \'");
+            System.err.println(error);
             String _escapeString = this.escapeString(error);
-            _builder.append(_escapeString, "");
-            _builder.append("\'}");
-            _xblockexpression_2 = (_builder);
+            String _plus = ("{\"error\" : \"" + _escapeString);
+            String _plus_1 = (_plus + "\"}");
+            _xblockexpression_2 = (_plus_1);
           }
           _xtrycatchfinallyexpression = _xblockexpression_2;
         } else {

@@ -26,7 +26,7 @@ class JsonTransformer extends ResponseTransformerRoute {
    }
 
    def escapeString(String s) {
-      s.replace("'", "\\'")
+      s.replace("\"", "\\\"")
    }
 
    override handle(Request request, Response response) {
@@ -51,8 +51,10 @@ class JsonTransformer extends ResponseTransformerRoute {
             }
          }
       } catch (Exception e) {
+         response.status(500)
          var error = Helper.handleError(request, response, e)
-         '''{'error': '«error.escapeString»'}'''
+         System.err.println(error)
+         "{\"error\" : \""+ error.escapeString + "\"}"
       } finally {
          Base.close()
       }
