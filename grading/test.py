@@ -29,5 +29,17 @@ class TestGraph(unittest.TestCase):
     graph = Graph(4)
     self.assertTrue(graph.is_valid())
 
+  def test_choose_random_nodes(self):
+    random_choice = Graph(5).choose_random_nodes()
+    self.assertNotIn(4, random_choice)
+
+  def test_odd_graph(self):
+    graph = Graph(5)
+    self.assertTrue(graph.all_connected)
+
+  def test_odd_graph_is_valid(self):
+    graph = Graph(5)
+    self.assertTrue(graph.is_valid())
+
 if __name__ == '__main__':
     unittest.main()

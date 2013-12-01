@@ -19,8 +19,11 @@ Approach:
 
 2. If the number of nodes are odd, we remove it so we can generate the graph
 
-3. We then add the isoltaed node back in and randomly add edges - 3 essays wil be graded 4 times
+3. We then add the isoltaed node back in and randomly add edges - some essays will be graded a few times more
 
+The graph only needs to be generated once, and is random. Once we have, we pull out the connected pairs and put them all on a stack.
+
+When a request comes in for pairs of essays to evaluate the stack is used
 
 Scoring of Essays
 ---
