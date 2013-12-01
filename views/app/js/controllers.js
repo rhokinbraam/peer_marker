@@ -53,7 +53,16 @@ var module = angular.module('myApp.controllers', []).
         });
         $scope.create = function (name, question) {
             AssignmentService.create(name, question).then(function(result){
-               console.debug(result.data);
+               $scope.marking = true;
+               $scope.assignment = result.data;
             });
+            
+            $scope.mark = function() {
+               $scope.assignment.status = 'MARKING';
+               AssignmentService.mark($scope.assignment).then(function(){
+                  $scope.marking = false;
+                  $scope.assignment = {};
+               });
+            }
         }
     }]);
