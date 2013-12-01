@@ -22,7 +22,12 @@ class TestGraph(unittest.TestCase):
     self.assertGreaterEqual(graph.average_degree_connectivity, 3)
 
   def test_no_self_loops(self):
-    pass
+    graph = Graph(4)
+    self.assertTrue(graph.no_self_loops())
+
+  def test_is_valid(self):
+    graph = Graph(4)
+    self.assertTrue(graph.is_valid())
 
 if __name__ == '__main__':
     unittest.main()
