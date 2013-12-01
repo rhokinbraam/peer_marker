@@ -26,7 +26,7 @@ class Main implements SparkApplication {
 		externalStaticFileLocation(workingDir + "/views/app")
 
 		before [ req, res, filter |
-			if (!req.pathInfo.equals("/login")) {
+			if (!req.pathInfo.startsWith("/login")) {
 				if (req.session(true).attribute("username") == null) {
 					res.redirect("/login")
 					filter.haltFilter(401, "Unauthorised")
