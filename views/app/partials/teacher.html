@@ -4,11 +4,11 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" ng-hide="assignment">
     <div class="col-md-12">
         <h2>Create Assignment</h2>
 
-        <form role="form" ng-submit="create(name, question)" >
+        <form role="form" ng-submit="create(name, question)">
             <div class="form-group">
                 <label>Name</label>
                 <input class="form-control" type="text" ng-model="name" ng-required="true"></textarea>
@@ -22,3 +22,18 @@
     </div>
 </div>
 
+<div class="row" ng-show="assignment">
+    <div class="col-md-12">
+        <h2>Assignment</h2>
+
+        <div class="form-group">
+            <label>{{assignment.name}}</label>
+        </div>
+        <div class="form-group">
+            <label>{{assignment.question}}</label>
+
+        </div>
+        <input type="button" ng-click="mark()"
+               class="btn btn-success" value="Start marking"/>
+    </div>
+</div>

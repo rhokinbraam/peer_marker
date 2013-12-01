@@ -35,25 +35,77 @@ var module = angular.module('myApp.controllers', []).
             fetch();
 
             $scope.submit = function (id, answer) {
-               AssignmentService.createAnswer(id, answer).then(function(){
-                  $scope.assignment = {};
-               });      
+                AssignmentService.createAnswer(id, answer).then(function () {
+                    $scope.assignment = {};
+                });
             };
 
-        }]).controller('HomeController', [
+        }])
+    .controller('HomeController', [
         '$location',
         'UserService',
         function ($location, UserService) {
             UserService.get().then(function (result) {
                 $location.path(result.data.type)
             });
-        }]).controller('TeacherController', ['$scope', 'UserService', 'AssignmentService' , function ($scope, UserService, AssignmentService) {
-        UserService.get().then(function (result) {
-            $scope.user = result.data;
-        });
-        $scope.create = function (name, question) {
-            AssignmentService.create(name, question).then(function(result){
-               console.debug(result.data);
+        }])
+    .controller('TeacherController', [
+        '$scope',
+        'UserService',
+        'AssignmentService' ,
+        '$location' ,
+        function ($scope, UserService, AssignmentService, $location) {
+            UserService.get().then(function (result) {
+                $scope.user = result.data;
             });
-        }
-    }]);
+
+            $scope.create = function (name, question) {
+                AssignmentService.create(name, question).then(function (result) {
+                    $scope.assignment = result.data;
+                });
+            };
+
+            $scope.mark = function () {
+                $scope.assignment.status = 'MARKING';
+                AssignmentService.mark($scope.assignment).then(function () {
+                    $scope.assignment = null;
+                    $location.path('/marking');
+                });
+            };
+
+        }]).controller('MarkingController', [
+        '$scope',
+        'UserService',
+        'AssignmentService' ,
+        '$timeout' ,
+        function ($scope, UserService, AssignmentService, $timeout) {
+            UserService.get().then(function (result) {
+                $scope.user = result.data;
+            });
+
+            AssignmentService.fetch().then(function (result) {
+                $scope.assignment = result.data;
+            });
+
+            var observeMarking = function () {
+                var checkMarking = $timeout(function () {
+                    AssignmentService.marking().then(function (result) {
+                        var data = result.data;
+                        console.debug(result.data);
+                        $scope.markingData = data;
+                        observeMarking();
+                    })
+                }, 1000);
+            };
+
+            observeMarking();
+        }]).controller('GradingController', [
+        '$scope',
+        'UserService',
+        'AssignmentService',
+        function ($scope, UserService, AssignmentService) {
+            UserService.get().then(function (result) {
+                $scope.user = result.data;
+            });
+
+        }]);

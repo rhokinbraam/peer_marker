@@ -138,7 +138,7 @@ class Main implements SparkApplication {
                "question",
                j.getString("question"),
                "status",
-               "EDITING"
+               j.getString("status")
             )
          ])
 
