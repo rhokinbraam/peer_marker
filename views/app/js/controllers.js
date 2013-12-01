@@ -34,8 +34,10 @@ var module = angular.module('myApp.controllers', []).
 
             fetch();
 
-            $scope.submitAssignment = function (answer) {
-
+            $scope.submit = function (id, answer) {
+               AssignmentService.createAnswer(id, answer).then(function(){
+                  $scope.assignment = {};
+               });      
             };
 
         }]).controller('HomeController', [
@@ -50,6 +52,8 @@ var module = angular.module('myApp.controllers', []).
             $scope.user = result.data;
         });
         $scope.create = function (name, question) {
-            AssignmentService.create(name, question);
+            AssignmentService.create(name, question).then(function(result){
+               console.debug(result.data);
+            });
         }
     }]);

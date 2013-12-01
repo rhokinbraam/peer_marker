@@ -8,16 +8,16 @@
     <div class="col-md-12">
         <h2>Create Assignment</h2>
 
-        <form role="form">
+        <form role="form" ng-submit="create(name, question)" >
             <div class="form-group">
                 <label>Name</label>
-                <input class="form-control" type="text" ng-model="name"></textarea>
+                <input class="form-control" type="text" ng-model="name" ng-required="true"></textarea>
             </div>
             <div class="form-group">
                 <label>Question</label>
-                <textarea class="form-control" rows="3" ng-model="question"></textarea>
+                <textarea class="form-control" rows="3" ng-model="question" ng-required="true"></textarea>
             </div>
-            <button type="submit" ng-submit="create(name, question)" class="btn btn-default">Submit</button>
+            <input type="submit" class="btn btn-success" value="submit"/>
         </form>
     </div>
 </div>
