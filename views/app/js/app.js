@@ -12,6 +12,7 @@ angular.module('myApp', [
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/student', {templateUrl: 'partials/student.html', controller: 'StudentController'});
         $routeProvider.when('/teacher', {templateUrl: 'partials/teacher.html', controller: 'TeacherController'});
+        $routeProvider.when('/marking', {templateUrl: 'partials/marking.html', controller: 'MarkingController'});
         $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeController'});
         $routeProvider.otherwise({redirectTo: '/home'});
     }]);
@@ -40,6 +41,8 @@ angular.module('myApp', [
                 $httpBackend.whenGET('api/assignment').respond(assignmentResponse());
             })();
 
+            $httpBackend.whenPOST('api/assignment').respond({name: "New Assigment", question: "new question"});
+
             (function(){
                 var marking={};
                 var markingTemp=[];
@@ -55,10 +58,10 @@ angular.module('myApp', [
                         clearInterval(running);
                         return;
                     }
-                    
-                    markingTemp.push(responses.pop());
+
+                    markingTemp = (responses.pop());
                     angular.extend(marking, markingTemp);
-                }, 2000);
+                }, 5000);
                 
                 var markingResponse = function(){
                     return marking;

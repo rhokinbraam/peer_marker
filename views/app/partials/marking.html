@@ -1,0 +1,33 @@
+<div class="row"s>
+    <div class="col-md-12">
+        <h2>Assignment</h2>
+
+        <div class="form-group">
+            <label>{{assignment.name}}</label>
+        </div>
+        <div class="form-group">
+            <label>{{assignment.question}}</label>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Currently Marked</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Answers</th>
+                <th>Evaluations</th>
+            </tr>
+            <tr ng-repeat="data in markingData">
+                <td>{{data.answers}}</td>
+                <td>{{data.evaluations}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-success" href="/grade">Grade</a>
+    </div>
+</div>

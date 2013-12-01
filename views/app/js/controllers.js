@@ -35,9 +35,9 @@ var module = angular.module('myApp.controllers', []).
             fetch();
 
             $scope.submit = function (id, answer) {
-               AssignmentService.createAnswer(id, answer).then(function(){
-                  $scope.assignment = {};
-               });      
+                AssignmentService.createAnswer(id, answer).then(function () {
+                    $scope.assignment = {};
+                });
             };
 
         }])
@@ -53,38 +53,50 @@ var module = angular.module('myApp.controllers', []).
         '$scope',
         'UserService',
         'AssignmentService' ,
-        function ($scope, UserService, AssignmentService) {
+        '$location' ,
+        function ($scope, UserService, AssignmentService, $location) {
             UserService.get().then(function (result) {
                 $scope.user = result.data;
             });
-            
+
             $scope.create = function (name, question) {
-                AssignmentService.create(name, question).then(function(result){
-                   $scope.marking = true;
-                   $scope.assignment = result.data;
+                AssignmentService.create(name, question).then(function (result) {
+                    $scope.assignment = result.data;
                 });
             };
-            
-            $scope.mark = function() {
-               $scope.assignment.status = 'MARKING';
-               AssignmentService.mark($scope.assignment).then(function(){
-                  $scope.marking = false;
-                  $scope.assignment = {};
-               });
+
+            $scope.mark = function () {
+                $scope.assignment.status = 'MARKING';
+                AssignmentService.mark($scope.assignment).then(function () {
+                    $scope.assignment = null;
+                    $location.path('/marking');
+                });
             };
 
-            var fetch = function () {
+        }]).controller('MarkingController', [
+        '$scope',
+        'UserService',
+        'AssignmentService' ,
+        '$timeout' ,
+        function ($scope, UserService, AssignmentService, $timeout) {
+            UserService.get().then(function (result) {
+                $scope.user = result.data;
+            });
+
+            AssignmentService.fetch().then(function (result) {
+                $scope.assignment = result.data;
+            });
+
+            var observeMarking = function () {
                 var checkMarking = $timeout(function () {
                     AssignmentService.marking().then(function (result) {
                         var data = result.data;
-                        data.sort(function(a,b){a.evaluations - b.evaluations});
+                        console.debug(result.data);
                         $scope.markingData = data;
-                        
-                        fetch();
+                        observeMarking();
                     })
                 }, 1000);
             };
 
-            fetch();
-        
-    }]);
+            observeMarking();
+        }]);
