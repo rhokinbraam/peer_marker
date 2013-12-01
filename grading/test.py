@@ -9,12 +9,12 @@ class TestPairFunctions(unittest.TestCase):
     pass
 
   def test_init(self):
-    essays = Essays([1,2])
-    self.assertTrue(isinstance(essays.graph, nx.classes.graph.Graph))
+    essays = Essays([123,456,789,101])
+    self.assertEqual(essays.essay_map, {0: 123, 1: 456, 2: 789, 3: 101 })
 
-  def test_next_pair(self):
-    essays = Essays([1,2,3,4])
-    self.assertEqual(essays.next_pair(1),[3,4])
+  def test_graph_average_degree_connectivity(self):
+    essays = Essays([123,456,789,101])
+    self.assertGreaterEqual(essays.average_degree_connectivity, 3)
 
 if __name__ == '__main__':
     unittest.main()
