@@ -19,7 +19,9 @@ angular.module('myApp.services', []).
             return $http.post("api/answer", {assignment : id, answer: answer});
         }, mark: function (assignment) {
             return $http.post("api/assignment", assignment);
-        }   };
+        }, marking: function () {
+            return $http.get("api/marking");
+        } };
     }).factory('UserService', function ($http) {
         return { get: function () {
             return $http.get("api/user");

@@ -40,6 +40,33 @@ angular.module('myApp', [
                 $httpBackend.whenGET('api/assignment').respond(assignmentResponse());
             })();
 
+            (function(){
+                var marking={};
+                var markingTemp=[];
+                var responses = [
+                                 [{answers: 5, evaluations: 0}, {answers: 1, evaluations: 1} ],
+                                 [{answers: 4, evaluations: 0}, {answers: 1, evaluations: 1}],
+                                 [{answers: 2, evaluations: 0}, {answers: 3, evaluations: 1}, {answers: 2, evaluations: 2}, ],
+                                 [{answers: 0, evaluations: 0}, {answers: 1, evaluations: 1}, {answers: 1, evaluations: 2},{answers: 3, evaluations: 3}, ],
+                                 ];
+                
+                var running = setInterval(function(){
+                    if (responses.length < 1) {
+                        clearInterval(running);
+                        return;
+                    }
+                    
+                    markingTemp.push(responses.pop());
+                    angular.extend(marking, markingTemp);
+                }, 2000);
+                
+                var markingResponse = function(){
+                    return marking;
+                };
+                
+                $httpBackend.whenGET('api/marking').respond(markingResponse());
+            })();
+            
             $httpBackend.whenGET('api/answers').respond([
                 {
                     assignment: { name: "One", status: "DONE"},

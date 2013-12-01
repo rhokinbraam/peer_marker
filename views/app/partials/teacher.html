@@ -37,3 +37,19 @@
             class="btn btn-success" value="Start marking"/>
     </div>
 </div>
+
+<div class="row" ng-show="markingData">
+    <div class="col-md-12">
+        <h3>Currently Marked</h3>
+        <table class="table table-striped">
+            <tr ng-repeat="data in markingData">
+                <th>Answers</th>
+                <th>Evaluations</th>
+            </tr>
+            <tr ng-repeat="data in markingData">
+                <td>{{data.answers}}</td>
+                <td>{{data.evaluations}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
