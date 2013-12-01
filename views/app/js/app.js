@@ -13,6 +13,7 @@ angular.module('myApp', [
         $routeProvider.when('/student', {templateUrl: 'partials/student.html', controller: 'StudentController'});
         $routeProvider.when('/teacher', {templateUrl: 'partials/teacher.html', controller: 'TeacherController'});
         $routeProvider.when('/marking', {templateUrl: 'partials/marking.html', controller: 'MarkingController'});
+        $routeProvider.when('/grading', {templateUrl: 'partials/grading.html', controller: 'GradingController'});
         $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeController'});
         $routeProvider.otherwise({redirectTo: '/home'});
     }]);

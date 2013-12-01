@@ -99,4 +99,13 @@ var module = angular.module('myApp.controllers', []).
             };
 
             observeMarking();
+        }]).controller('GradingController', [
+        '$scope',
+        'UserService',
+        'AssignmentService',
+        function ($scope, UserService, AssignmentService) {
+            UserService.get().then(function (result) {
+                $scope.user = result.data;
+            });
+
         }]);
