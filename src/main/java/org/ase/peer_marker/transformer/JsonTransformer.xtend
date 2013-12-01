@@ -2,13 +2,13 @@ package org.ase.peer_marker.transformer
 
 import com.tobykurien.sparkler.Helper
 import com.tobykurien.sparkler.db.DatabaseManager
-import java.util.Map
 import org.javalite.activejdbc.Base
 import org.javalite.activejdbc.LazyList
 import org.javalite.activejdbc.Model
 import spark.Request
 import spark.Response
 import spark.ResponseTransformerRoute
+import com.fasterxml.jackson.databind.ObjectMapper
 
 /**
  * Returns a JSON serialized version of Model objects
@@ -44,17 +44,15 @@ class JsonTransformer extends ResponseTransformerRoute {
                return (model as Model).toJson(false)
             } else if (model instanceof LazyList) {
                return (model as LazyList).toJson(false)
-            } else if (model instanceof Map) {
-               return (model as Map).toString.escapeString
             } else if (model == null) {
                null
             } else {
-               '''{ 'result': '«model.toString.escapeString»' }'''
+            	new ObjectMapper().writeValueAsString(model);
             }
          }
       } catch (Exception e) {
          var error = Helper.handleError(request, response, e)
-         '''{'error': '«error.escapeString»'}'''
+         '''{'error': '�error.escapeString�'}'''
       } finally {
          Base.close()
       }
