@@ -21,7 +21,9 @@ class Main implements SparkApplication {
 		val student = Model.with(Student)
 		val assignment = Model.with(Assignment)
 		val answer = Model.with(Answer)
-		externalStaticFileLocation("/Users/zabil/projects/peer_marker/views/app")
+		
+		var workingDir = System.getProperty("user.dir")
+		externalStaticFileLocation(workingDir + "/views/app")
 
 		before [ req, res, filter |
 			if (!req.pathInfo.equals("/login")) {
@@ -57,20 +59,25 @@ class Main implements SparkApplication {
 				assignment.all
 			])
 		
+      get(
+         new JsonTransformer("/api/assignment") [ req, res |
+            // TODO - return the current assignment for this student, else return blank {}
+         ])
+
 		get("/api/user") [ req, res |
-			res.type("application/json")
 			'''{ "name": "toby"}'''
 		]
 		
 		get(
 			new JsonTransformer("/api/answers") [ req, res |
-				answer.all
+				answer.all.include(Student).toMaps
 			])
 			
 		get(
 			new JsonTransformer("/api/answers/:id") [ req, res |
 				answer.findById(req.params("id"))
 			])
+			
 	}
 
 	def static void main(String[] args) {
