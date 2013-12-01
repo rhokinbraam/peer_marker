@@ -28,6 +28,9 @@
 	<classpathentry kind="lib" path="libs/snakeyaml-1.11.jar"/>
 	<classpathentry kind="lib" path="libs/spark-core-1.1.1.jar"/>
 	<classpathentry kind="lib" path="libs/sparkler_v0.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.2.3.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-core-2.2.3.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.2.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
