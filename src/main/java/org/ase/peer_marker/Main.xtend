@@ -1,17 +1,16 @@
 package org.ase.peer_marker
 
 import com.tobykurien.sparkler.db.DatabaseManager
-import com.tobykurien.sparkler.transformer.JsonTransformer
 import org.ase.peer_marker.model.Answer
 import org.ase.peer_marker.model.Assignment
 import org.ase.peer_marker.model.Student
+import org.ase.peer_marker.transformer.JsonTransformer
 import org.javalite.activejdbc.Base
 import org.javalite.activejdbc.Model
 import org.json.JSONObject
 import spark.servlet.SparkApplication
 
 import static com.tobykurien.sparkler.Sparkler.*
-import com.tobykurien.sparkler.Helper
 
 class Main implements SparkApplication {
 
@@ -155,8 +154,18 @@ class Main implements SparkApplication {
 
       get(
          new JsonTransformer("/api/assignment") [ req, res |
-            assignment.find("status = ?", "EDITING")?.get(0)
+            var assigns = assignment.find("status = ?", "EDITING")
+            if (assigns.length > 0) {
+               assigns.get(0)
+            } else {
+               #{}
+            }
          ])
+         
+      get("/api/marking") [req, res|
+         res.type("application/json")
+         '''[{"answers": 5, "evaluations": 0}, {"answers": 1, "evaluations": 1} ]'''
+      ]
 
    }
 

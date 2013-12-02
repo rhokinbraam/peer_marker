@@ -9,15 +9,9 @@
         <table class="table table-striped" ng-hide="assignment.name">
             <tr>
                 <th>Assignment</th>
-                <th>Date</th>
-                <th>Grade</th>
-                <th>Status</th>
             </tr>
             <tr ng-repeat="answer in answers">
-                <td>{{answer.assignment.name}}</td>
-                <td>{{answer.date}}</td>
-                <td>{{answer.grade}}</td>
-                <td>{{answer.assignment.status}}</td>
+                <td>{{answer.content}}</td>
             </tr>
         </table>
     </div>
